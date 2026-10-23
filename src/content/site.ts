@@ -60,6 +60,8 @@ export const legal = {
   commercialRegistration: "Commercial Registration: to be confirmed",
   vatRegistration: "VAT Registration: to be confirmed",
   copyright: `© ${new Date().getFullYear()} AutoParts KSA. All rights reserved.`,
+  imageCredits:
+    "Demo product photography: Wikimedia Commons contributors (CC BY-SA / public domain) and Pexels.",
 } as const;
 
 /** Social profiles — PLACEHOLDERS. Clicks show an honest demo notice. */
