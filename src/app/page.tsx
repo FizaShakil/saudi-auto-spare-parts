@@ -5,6 +5,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { PaymentDelivery } from "@/components/sections/PaymentDelivery";
+import { PhotoBand } from "@/components/sections/PhotoBand";
 import { PopularMakes } from "@/components/sections/PopularMakes";
 import { QualitySection } from "@/components/sections/QualitySection";
 import { TrustStrip } from "@/components/sections/TrustStrip";
@@ -23,9 +24,9 @@ export default function Home() {
       <Hero />
       <TrustStrip />
       <CategorySection />
-      <QualitySection />
       <HowItWorks />
       <FeaturedParts />
+      <PhotoBand />
       <VinEducation />
       <PopularMakes />
       <PaymentDelivery />
