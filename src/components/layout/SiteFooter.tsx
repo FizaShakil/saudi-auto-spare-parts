@@ -181,7 +181,10 @@ export function SiteFooter() {
 
         {/* Legal bar */}
         <div className="mt-6 flex flex-col gap-3 border-t border-white/15 pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-xs text-white/60">{legal.copyright}</p>
+          <div className="flex flex-col gap-1">
+            <p className="text-xs text-white/60">{legal.copyright}</p>
+            <p className="text-xs text-white/45">{legal.imageCredits}</p>
+          </div>
           <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-white/60">
             <span>{legal.commercialRegistration}</span>
             <span>{legal.vatRegistration}</span>

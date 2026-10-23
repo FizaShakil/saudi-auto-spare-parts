@@ -42,13 +42,14 @@ src/
 │   └── globals.css       # design tokens, base styles, reduced motion
 ├── components/
 │   ├── layout/           # announcement bar, header, cart drawer, footer, WhatsApp
-│   ├── sections/         # one file per page section
+│   ├── sections/         # one file per page section (+ PhotoBand)
 │   ├── products/         # product card + quality tier selector
 │   ├── vehicle/          # vehicle finder, VIN form, VIN help dialog
-│   ├── illustrations/    # inline SVG artwork (hero, products, VIN)
-│   └── ui/               # Button, Container, Section, SelectField, Dialog, ToastHost
+│   ├── illustrations/    # inline SVG artwork (hero, products, VIN fallbacks)
+│   └── ui/               # Button, Container, Reveal, Section, SelectField, Dialog, ToastHost
 ├── content/
 │   ├── copy.ts           # every headline, paragraph and FAQ answer
+│   ├── images.ts         # remote demo photo URLs + per-image credits
 │   └── site.ts           # brand, contact, legal, payment and footer links
 ├── data/
 │   └── mock.ts           # makes/models/years/engines, categories, products, VIN map
@@ -97,6 +98,39 @@ Every action on the site uses the `Button` primitive
 `ghost`, `onBrand`, `danger`) and `size` (`sm`, `md`, `lg`). Add new actions
 through it rather than hand-rolling button classes.
 
+### Demo imagery
+
+Real photographs are hotlinked so the demo reads like a genuine parts
+catalogue. All URLs live in one place — `src/content/images.ts` — and were
+verified (HTTP 200) at the time of writing:
+
+| Where | Source | License |
+|---|---|---|
+| 8 product card photos | Wikimedia Commons (fixed 960 px thumbs) | PD / CC0 / CC BY-SA 3.0–4.0, per-image credit |
+| Hero panel | Pexels photo 5506059 (workshop shelves) | Pexels License |
+| Photo band (between products and VIN) | Pexels photo 4315573 (mechanic at work) | Pexels License |
+
+- The footer legal bar carries a one-line credit to satisfy CC BY-SA
+  attribution; per-image credits are in `images.ts`.
+- Photos render through `next/image` (remote hosts whitelisted in
+  `next.config.ts`), so they are lazy-loaded, resized by the image optimizer
+  and CLS-free inside their reserved aspect-ratio containers.
+- Every photo has an `onError` fallback: product cards fall back to the
+  vector `<ProductArtwork>`, the hero falls back to `<PartsHeroArt>`, and the
+  decorative photo band hides itself. The page therefore still looks complete
+  offline or if a hotlink is blocked.
+- **Before production these must be replaced** with client-owned photography
+  served from the client's CDN — hotlinked stock is not a launch strategy.
+- Wikimedia rate-limits bursts of requests; that is fine for human traffic.
+
+### Scroll animation
+
+`src/components/ui/Reveal.tsx` is a tiny IntersectionObserver wrapper (no
+animation library): opacity + 12 px rise over 500 ms, with an optional
+`delay` prop used for staggered grids. It is SSR-safe — server HTML is fully
+visible, only off-screen elements are hidden after hydration, and
+`prefers-reduced-motion` is respected in JS as well as CSS.
+
 ## How the demo behaves
 
 - **Vehicle finder** — pick make, model, year and (optionally) engine. Fields
@@ -140,6 +174,8 @@ confirmed by the business before anything goes live:
 - **Fitment** — compatibility flags are illustrative, derived from the mock
   data, not a real catalogue.
 - **VIN decoding** — a hard-coded lookup for a single demo VIN, no decoding.
+- **Product photography** — hotlinked placeholders from Wikimedia Commons
+  and Pexels (see "Demo imagery"); not owned by the client.
 - **Checkout, accounts, order tracking** — out of scope; the UI says so.
 
 `FAQ` answers about returns and delivery times are written conservatively and

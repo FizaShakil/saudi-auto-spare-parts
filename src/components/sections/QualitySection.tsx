@@ -6,6 +6,7 @@
  * about manufacturing quality by country.
  */
 
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { qualitySection } from "@/content/copy";
 import { qualityTiers } from "@/data/mock";
@@ -14,15 +15,18 @@ import { sectionIds } from "@/lib/navigation";
 export function QualitySection() {
   return (
     <Section id={sectionIds.quality} className="border-y border-line bg-surface">
-      <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">
-          {qualitySection.title}
-        </h2>
-        <p className="mt-4 text-base leading-relaxed text-muted">
-          {qualitySection.description}
-        </p>
-      </div>
+      <Reveal>
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">
+            {qualitySection.title}
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            {qualitySection.description}
+          </p>
+        </div>
+      </Reveal>
 
+      <Reveal delay={80}>
       <div className="mt-9 grid overflow-hidden rounded-panel border border-line bg-white md:grid-cols-3">
         {qualityTiers.map((tier, index) => (
           <div
@@ -73,7 +77,9 @@ export function QualitySection() {
           </div>
         ))}
       </div>
+      </Reveal>
 
+      <Reveal delay={120}>
       <div className="mt-7 flex flex-col gap-2">
         <p className="text-lg font-semibold tracking-tight text-ink">
           {qualitySection.closing}
@@ -82,6 +88,7 @@ export function QualitySection() {
           {qualitySection.note}
         </p>
       </div>
+      </Reveal>
     </Section>
   );
 }

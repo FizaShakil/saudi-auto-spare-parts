@@ -1,9 +1,11 @@
 /**
- * Neutral, part-specific vector artwork for the product grid.
+ * Neutral, part-specific vector artwork.
  *
- * Real product photography is not available for this demo, so each SKU gets a
- * purpose-drawn illustration instead of a generic stock image. The container
- * background is `surface` (#F7F9F7), which the artwork uses for cut-outs.
+ * Used as the offline fallback whenever a remote product photograph fails to
+ * load (see `src/content/images.ts` and the onError handler in ProductCard),
+ * and wherever a purpose-drawn diagram reads better than a stock photo. The
+ * container background is `surface` (#F7F9F7), which the artwork uses for
+ * cut-outs.
  */
 
 import type { ArtworkKind } from "@/lib/types";

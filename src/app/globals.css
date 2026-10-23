@@ -167,6 +167,12 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  /* Scroll-reveal start state, applied by <Reveal />'s IntersectionObserver. */
+  .reveal-pending {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 
 /* -------------------------------------------------------------------------- */

@@ -10,12 +10,14 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { Car, Check, HelpCircle, Loader2, ShoppingCart } from "lucide-react";
 
 import { ProductArtwork } from "@/components/illustrations/ProductArtwork";
 import { QualitySelector } from "@/components/products/QualitySelector";
 import { Button } from "@/components/ui/Button";
 import { featuredSection } from "@/content/copy";
+import { productImages } from "@/content/images";
 import { isCompatible, qualityTiers } from "@/data/mock";
 import { formatSAR } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -28,6 +30,8 @@ export function ProductCard({ product }: { product: Product }) {
 
   const [quality, setQuality] = useState<QualityTierId>("japan");
   const [phase, setPhase] = useState<Phase>("idle");
+  // Remote photo failed to load — fall back to the vector artwork.
+  const [photoFailed, setPhotoFailed] = useState(false);
 
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -80,13 +84,24 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-xs transition-all hover:border-muted/40 hover:shadow-sm">
-      {/* Consistent artwork container with a reserved aspect ratio */}
-      <div className="relative aspect-[4/3] border-b border-line bg-surface">
-        <ProductArtwork
-          kind={product.artwork}
-          className="absolute inset-0 h-full w-full p-5"
-        />
+    <article className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-white shadow-xs transition-all hover:border-muted/40 hover:shadow-sm">
+      {/* Consistent photo container with a reserved aspect ratio */}
+      <div className="relative aspect-[4/3] overflow-hidden border-b border-line bg-surface">
+        {photoFailed ? (
+          <ProductArtwork
+            kind={product.artwork}
+            className="absolute inset-0 h-full w-full p-5"
+          />
+        ) : (
+          <Image
+            src={productImages[product.artwork].src}
+            alt={productImages[product.artwork].alt}
+            fill
+            sizes="(min-width: 1280px) 300px, (min-width: 768px) 33vw, (min-width: 520px) 50vw, 100vw"
+            onError={() => setPhotoFailed(true)}
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          />
+        )}
       </div>
 
       <div className="flex flex-1 flex-col p-4">
