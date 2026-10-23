@@ -1,17 +1,26 @@
+"use client";
+
 /**
  * Hero — the primary conversion area.
  *
- * Desktop: a 55/45 split between the headline + vehicle finder and a custom
- * parts illustration. Mobile: copy first, finder immediately after, artwork
- * last so the primary action is never pushed below the fold.
+ * Desktop: a 55/45 split between the headline + vehicle finder and a real
+ * workshop photograph (vector illustration as offline fallback). Mobile:
+ * copy first, finder immediately after, artwork last so the primary action
+ * is never pushed below the fold.
  */
+
+import { useState } from "react";
+import Image from "next/image";
 
 import { Container } from "@/components/ui/Container";
 import { PartsHeroArt } from "@/components/illustrations/PartsHeroArt";
 import { VehicleFinder } from "@/components/vehicle/VehicleFinder";
 import { hero } from "@/content/copy";
+import { heroImage } from "@/content/images";
 
 export function Hero() {
+  const [photoFailed, setPhotoFailed] = useState(false);
+
   return (
     <section className="relative bg-white">
       <Container className="pb-14 pt-9 sm:pt-12 lg:pb-20 lg:pt-16">
@@ -34,8 +43,20 @@ export function Hero() {
 
           {/* Secondary visual ----------------------------------------------- */}
           <div className="lg:col-start-2 lg:row-start-1 lg:pt-2">
-            <div className="relative overflow-hidden rounded-panel border border-brand/15 bg-brand-light">
-              <PartsHeroArt className="h-auto w-full" />
+            <div className="relative aspect-[4/3] overflow-hidden rounded-panel border border-brand/15 bg-brand-light lg:aspect-[5/4]">
+              {photoFailed ? (
+                <PartsHeroArt className="h-full w-full" />
+              ) : (
+                <Image
+                  src={heroImage.src}
+                  alt={heroImage.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 96vw"
+                  onError={() => setPhotoFailed(true)}
+                  className="object-cover"
+                />
+              )}
             </div>
 
             <p className="mt-4 max-w-[42ch] text-sm leading-relaxed text-muted">

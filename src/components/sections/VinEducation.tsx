@@ -10,6 +10,7 @@ import { useState } from "react";
 import { ArrowRight, Check, MapPin, Pin } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { VinForm } from "@/components/vehicle/VinForm";
 import { demoNotices, vinSection } from "@/content/copy";
@@ -31,6 +32,7 @@ export function VinEducation() {
 
   return (
     <Section id={sectionIds.vin} className="bg-brand-light">
+      <Reveal>
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Explanatory column --------------------------------------------- */}
         <div>
@@ -110,6 +112,7 @@ export function VinEducation() {
           </div>
         </div>
       </div>
+      </Reveal>
     </Section>
   );
 }

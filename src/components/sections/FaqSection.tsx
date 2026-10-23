@@ -12,6 +12,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { faqSection } from "@/content/copy";
 import { sectionIds } from "@/lib/navigation";
@@ -21,6 +22,7 @@ export function FaqSection() {
 
   return (
     <Section id={sectionIds.faq} className="border-t border-line">
+      <Reveal>
       <div className="grid gap-8 lg:grid-cols-[340px_1fr] lg:gap-14">
         {/* Heading column */}
         <div>
@@ -80,6 +82,7 @@ export function FaqSection() {
           })}
         </div>
       </div>
+      </Reveal>
     </Section>
   );
 }

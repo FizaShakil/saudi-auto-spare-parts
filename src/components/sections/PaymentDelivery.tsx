@@ -8,6 +8,7 @@
 
 import { Check, FileText, Info, Receipt } from "lucide-react";
 
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { paymentSection } from "@/content/copy";
 import { deliveryPartners, paymentMethods } from "@/content/site";
@@ -22,12 +23,15 @@ const FACT_ICONS: Record<string, typeof Check> = {
 export function PaymentDelivery() {
   return (
     <Section id={sectionIds.payment} dense>
-      <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">
-          {paymentSection.title}
-        </h2>
-      </div>
+      <Reveal>
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">
+            {paymentSection.title}
+          </h2>
+        </div>
+      </Reveal>
 
+      <Reveal delay={80}>
       <div className="mt-8 grid gap-8 border-t border-line pt-8 md:grid-cols-2 md:gap-12">
         {/* Payments */}
         <div>
@@ -71,19 +75,22 @@ export function PaymentDelivery() {
           </p>
         </div>
       </div>
+      </Reveal>
 
       {/* Pricing and invoice facts */}
       <ul className="mt-8 grid gap-4 border-t border-line pt-8 sm:grid-cols-3">
-        {paymentSection.facts.map((fact) => {
+        {paymentSection.facts.map((fact, index) => {
           const Icon = FACT_ICONS[fact.id] ?? Check;
           return (
-            <li key={fact.id} className="flex items-start gap-3">
-              <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-light text-brand">
-                <Icon className="h-3.5 w-3.5" aria-hidden="true" />
-              </span>
-              <span className="text-sm leading-relaxed text-ink">
-                {fact.text}
-              </span>
+            <li key={fact.id}>
+              <Reveal delay={index * 70} className="flex items-start gap-3">
+                <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-md bg-brand-light text-brand">
+                  <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                </span>
+                <span className="text-sm leading-relaxed text-ink">
+                  {fact.text}
+                </span>
+              </Reveal>
             </li>
           );
         })}

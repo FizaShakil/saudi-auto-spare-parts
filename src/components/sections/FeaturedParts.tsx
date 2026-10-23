@@ -13,6 +13,7 @@ import { Car, SearchX, SlidersHorizontal, X } from "lucide-react";
 
 import { ProductCard } from "@/components/products/ProductCard";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { featuredSection } from "@/content/copy";
 import { categories, products } from "@/data/mock";
@@ -180,9 +181,11 @@ export function FeaturedParts() {
       {/* Results -------------------------------------------------------------- */}
       {filtered.length > 0 ? (
         <ul className="mt-6 grid gap-4 min-[520px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((product) => (
+          {filtered.map((product, index) => (
             <li key={product.id} className="min-w-0">
-              <ProductCard product={product} />
+              <Reveal delay={(index % 4) * 60} className="h-full">
+                <ProductCard product={product} />
+              </Reveal>
             </li>
           ))}
         </ul>

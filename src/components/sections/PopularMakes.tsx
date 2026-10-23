@@ -8,6 +8,7 @@
 
 import { Check } from "lucide-react";
 
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { makesSection } from "@/content/copy";
 import { popularMakes } from "@/data/mock";
@@ -20,6 +21,7 @@ export function PopularMakes() {
 
   return (
     <Section id={sectionIds.makes} dense className="border-y border-line bg-surface">
+      <Reveal>
       <div className="grid gap-6 lg:grid-cols-[300px_1fr] lg:gap-12">
         <div>
           <h2 className="text-3xl font-semibold leading-tight tracking-tight text-ink md:text-4xl">
@@ -55,6 +57,7 @@ export function PopularMakes() {
           })}
         </ul>
       </div>
+      </Reveal>
     </Section>
   );
 }
